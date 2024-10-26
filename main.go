@@ -77,10 +77,8 @@ func main() {
 	}
 
 	// 构建 Kibana 查询面板链接
-	startTime := before.UTC() // 格式化为 Kibana 支持的时间格式
-	endTime := now.UTC()
 	kibanaLink := fmt.Sprintf("%s/app/discover#/?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:'%s',to:'%s'))&_a=(columns:!('@timestamp',message),filters:!(),index:%s,interval:auto,query:(language:kuery,query:''),sort:!(!('@timestamp',desc)))",
-		kibana_url, startTime, endTime, indexName)
+		kibana_url, before.UTC().Format("2006-01-02T15:04:05.000Z"), now.UTC().Format("2006-01-02T15:04:05.000Z"), indexName)
 	fmt.Println("Kibana 查询面板链接:", kibanaLink)
 
 }
